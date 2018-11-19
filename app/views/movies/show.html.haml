@@ -1,5 +1,12 @@
 %h1= @movie.title
-.jumbotron
-  = @movie.description
+.row
+  .col-sm-4
+    %img.img-rounded{ src: movie_poster(@movie, @movie_data), width: '200' }
+  .col-sm-8
+    %p= "Rating: #{@movie_data.attributes.rating}/10.0"
+    .well
+      = @movie_data.attributes.plot
+
 - if user_signed_in?
+  %br/
   %p= link_to 'Email me details about this movie', send_info_movie_path(@movie), class: 'btn btn-sm btn-default'
