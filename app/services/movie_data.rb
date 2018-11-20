@@ -6,8 +6,7 @@ class MovieData
   POSTER_ENDPOINT = "https://pairguru-api.herokuapp.com/"
 
   def call(movie)
-    title = URI.encode(movie.title)
-    url = URI.parse(API_ENPOINT + title)
+    url = get_url(movie)
     begin
       response = Net::HTTP.get(url)
       format_response(response)
@@ -22,8 +21,7 @@ class MovieData
 
     movies.each do |movie|
       threads << Thread.new do
-        title = URI.encode(movie.title)
-        url = URI.parse(API_ENPOINT + title)
+        url = get_url(movie)
 
         begin
           response = Net::HTTP.get(url)
@@ -43,5 +41,10 @@ class MovieData
   def format_response(response)
     res = JSON.parse(response, object_class:OpenStruct)
     res.data
+  end
+
+  def get_url(movie)
+    title = URI.encode(movie.title)
+    URI.parse(API_ENPOINT + title)
   end
 end
