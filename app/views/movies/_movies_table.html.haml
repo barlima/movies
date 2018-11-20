@@ -4,12 +4,14 @@
       %tr
         %td= i + 1
         %td
-          %img.img-rounded{ src: movie.cover }
+          %img.img-rounded{ src: movie_poster(movie, data), width: '150' }
         %td
           %h4
             = link_to movie.title, movie_path(movie)
+            - if data
+              = "(#{movie_rating(movie, data)}/10.0)"
           %p
             %strong
               = link_to movie.genre.name, movies_genre_path(movie.genre)
             = ' (' + movie.released_at.to_s + ')'
-          %p= movie.description
+          %p= movie_description(movie, data) || movie.description

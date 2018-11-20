@@ -3,10 +3,12 @@ class MoviesController < ApplicationController
 
   def index
     @movies = Movie.all.decorate
+    @movies_data = MovieData.new.collection(@movies)
   end
 
   def show
     @movie = Movie.find(params[:id])
+    @movie_data = MovieData.new.call(@movie)
   end
 
   def send_info
