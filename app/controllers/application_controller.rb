@@ -4,6 +4,12 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  def call_rake(task, options={})
+    options[:rails_env] ||= Rails.env
+    args = options.map { |n, v| "#{n.to_s.upcase}='#{v}'" }
+    system "/usr/bin/rake #{task} #{args.join(' ')} &"
+  end
+
   protected
 
   def configure_permitted_parameters
