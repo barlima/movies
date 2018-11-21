@@ -12,14 +12,12 @@ class MoviesController < ApplicationController
   end
 
   def send_info
-    @movie = Movie.find(params[:id])
-    MovieInfoMailer.send_info(current_user, @movie).deliver_now
+    call_rake("mailer:send_movie_data", { movie_id: params[:id], user_id: current_user.id })
     redirect_back(fallback_location: root_path, notice: "Email sent with movie info")
   end
 
   def export
-    file_path = "tmp/movies.csv"
-    MovieExporter.new.call(current_user, file_path)
+    call_rake("exporter:export_movies_data", { user_id: current_user.id })
     redirect_to root_path, notice: "Movies exported"
   end
 end
