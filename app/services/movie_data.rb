@@ -19,7 +19,7 @@ class MovieData
     data = []
     threads = []
 
-    movies.each do |movie|
+    movies.uniq(&:title).each do |movie|
       threads << Thread.new do
         url = get_url(movie)
 
