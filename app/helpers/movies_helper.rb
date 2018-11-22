@@ -20,7 +20,7 @@ module MoviesHelper
 
   def get_attribute(movie, data, param)
     if data.is_a?(Array)
-      film = data.find{ |m| m.attributes.title == movie.title } 
+      film = data.find{ |m| m.attributes.title == movie.title } rescue nil
     elsif data
       film = data
     end
