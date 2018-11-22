@@ -1,0 +1,19 @@
+.row
+  .col-md-6.col-md-offset-3
+    -# .col-lg-6.col-lg-offset-2
+    %h1.text-center Top commenters
+    %p.text-center= "(Since #{7.days.ago.to_date.to_s(:long)})"
+    %table.table.table-striped
+      %thead
+        %tr
+          %th.col-md-1 #
+          %th.col-md-2 Name
+          %th.text-center Email
+          %th.col-md-4.text-center Number of comments
+      %tbody
+        - @scores.each_with_index do |(user, score), i|
+          %tr
+            %td= i + 1
+            %td= user.name
+            %td.text-center= user.email
+            %td.text-center= score

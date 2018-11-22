@@ -86,9 +86,13 @@ end
 Rails.logger.info "Creating comments..."
 
 20.times do |i|
-  Comment.create!(
-    movie: Movie.find(1),
-    user: User.find(i + 1),
-    body: Faker::Lorem.paragraph(5)
-  )
+  # 100 movies
+  (1..100).to_a.shuffle.first(1 + rand(99)).each do |m|
+    Comment.create!(
+      movie: Movie.find(m),
+      user: User.find(i + 1),
+      body: Faker::Lorem.paragraph(5),
+      created_at: Date.today - rand(21)
+    )
+  end
 end
