@@ -1,0 +1,11 @@
+.container
+  .row.justify-content-md-center
+    .col-md-6.col-md-offset-3
+      %br/
+      %h3 Add a comment
+      = form_with(model: [ @movie, @comment ], local: true) do |f|
+        .well
+          .form-group
+            = f.text_area :body, class: "form-comtrol", rows: 6, style: 'width:100%; resize: none;'
+          .actions
+            = f.submit "Comment", class: "btn btn-default"

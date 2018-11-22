@@ -15,5 +15,7 @@
 class Movie < ApplicationRecord
   validates :title, presence: true, title_brackets: true
 
+  has_many :comments
+  
   belongs_to :genre
 end

@@ -1,0 +1,16 @@
+.container
+  .row.justify-content-md-center
+    .col-md-6.col-md-offset-3
+      %h3 Comments:
+    - if @movie.comments.any?
+      - sort_comments(@movie.comments).each do |comment|
+        .col-md-6.col-md-offset-3
+          .well
+            %h4= comment_author(comment)
+            %small= comment.created_at
+            %p= comment.body
+            = link_to('Delete', movie_comment_path(movie_id: @movie.id, id: comment.id), method: :delete, class: "btn btn-danger") if current_user.id == comment.user.id
+    - else
+      .col-md-6.col-md-offset-3
+        .well
+          %h4 There are no comments yet
