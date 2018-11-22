@@ -1,12 +1,18 @@
-%h1= @movie.title
-.row
-  .col-sm-4
-    %img.img-rounded{ src: movie_poster(@movie, @movie_data), width: '200' }
-  .col-sm-8
-    %p= "Rating: #{@movie_data.attributes.rating}/10.0"
-    .well
-      = @movie_data.attributes.plot
+.container
+  .row.justify-content-md-center
+    .col-md-10.col-md-offset-1
+      %h1.text-center= @movie.title
+      %br/
+      .col-sm-4
+        %img.img-rounded{ src: movie_poster(@movie, @movie_data), style: 'width: 100%;' }
+      .col-sm-8
+        %h4= "Rating: #{@movie_data.attributes.rating}/10.0"
+        .well
+          = @movie_data.attributes.plot
 
-- if user_signed_in?
-  %br/
-  %p= link_to 'Email me details about this movie', send_info_movie_path(@movie), class: 'btn btn-sm btn-default'
+        - if user_signed_in?
+          %br/
+          %p= link_to 'Email me details about this movie', send_info_movie_path(@movie), class: 'btn btn-sm btn-default'
+
+  = render 'comments/comments_form'
+  = render 'comments/comments_list'

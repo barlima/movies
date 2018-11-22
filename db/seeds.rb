@@ -82,3 +82,13 @@ if Movie.count < 100
     )
   end
 end
+
+Rails.logger.info "Creating comments..."
+
+20.times do |i|
+  Comment.create!(
+    movie: Movie.find(1),
+    user: User.find(i + 1),
+    body: Faker::Lorem.paragraph(5)
+  )
+end
