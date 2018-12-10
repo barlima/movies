@@ -41,7 +41,7 @@ describe MoviesHelper, type: :helper do
   end
 
   describe "#movie_description" do 
-    it "returns description if a movie exists" do 
+    it "returns description if a movie exists" do
       expect(helper.movie_description(godfather, data)).to eql("Godfather description")
     end
 

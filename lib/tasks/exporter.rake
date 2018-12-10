@@ -9,5 +9,4 @@ namespace :exporter do
       MovieExporter.new.call(user, file_path)
     end
   end
-
 end

@@ -32,7 +32,7 @@ class MovieData
       end
     end
 
-    threads.each{|t| t.join}
+    threads.each(&:join)
     data
   end
 

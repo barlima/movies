@@ -1,10 +1,9 @@
 class TitleBracketsValidator < ActiveModel::Validator
-
   BRECKETS_PAIRS = [
     ['(', ')'],
     ['[', ']'],
     ['{', '}']
-  ]
+  ].freeze
 
   def validate(record)
     check_number(record)
@@ -48,7 +47,7 @@ class TitleBracketsValidator < ActiveModel::Validator
           record.errors[:title] << 'contains empty brackets' if content.blank? && opened
           opened = false
         elsif opened
-          content << c unless ( %w( ( ) [ ] { } ).include?(c) )
+          content << c unless %w(( ) [ ] { }).include?(c)
         end
       end
     end

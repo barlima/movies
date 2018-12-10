@@ -13,12 +13,18 @@ class MoviesController < ApplicationController
   end
 
   def send_info
-    call_rake("mailer:send_movie_data", { movie_id: params[:id], user_id: current_user.id })
-    redirect_back(fallback_location: root_path, notice: "Email sent with movie info")
+    if current_user && params[:id]
+      EmailWorker.perform_async(current_user.id, params[:id])
+      # call_rake("mailer:send_movie_data", { movie_id: params[:id], user_id: current_user.id })
+      redirect_back(fallback_location: root_path, notice: "Email sent with movie info.")
+    else
+      redirect_back(fallback_location: root_path, notice: "Something went wrong. Please retry.")
+    end
   end
 
   def export
-    call_rake("exporter:export_movies_data", { user_id: current_user.id })
+    # call_rake("exporter:export_movies_data", { user_id: current_user.id })
+    ExportWorker.perform_async(current_user.id)
     redirect_to root_path, notice: "Movies exported"
   end
 end
